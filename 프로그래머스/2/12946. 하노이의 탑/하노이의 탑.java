@@ -1,16 +1,24 @@
 import java.util.*;
+
 class Solution {
-    public static List<int[]> list = new ArrayList<>();
-    public static void hanoi(int num,int from, int sub, int to){
-        if(num==0) return;
-        hanoi(num-1, from, to, sub);
-        list.add(new int[]{from,to});
-        hanoi(num-1,sub,from,to);
+    public int[][] solution(int n) {
+        List<int[]> list = new ArrayList<>();
+        move(n, list, 1, 3, 2);
+        int[][] answer = new int[list.size()][2];
+        for(int i=0;i<list.size();i++){
+            answer[i][0] = list.get(i)[0];
+            answer[i][1] = list.get(i)[1];
+        }
+        return answer;
     }
     
-    public int[][] solution(int n) {
-        hanoi(n, 1,2,3);
-        int[][] answer = list.toArray(new int[0][]);
-        return answer;
+    public static void move(int n, List<int[]> list, int from, int to, int mid){
+        if(n == 1){
+            list.add(new int[]{from, to});
+            return;
+        }
+        move(n-1, list, from, mid, to);
+        list.add(new int[]{from, to});
+        move(n-1, list, mid, to, from);
     }
 }
