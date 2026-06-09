@@ -1,20 +1,14 @@
 import java.util.*;
-
 class Solution {
     public int solution(String[][] clothes) {
-        Map<String, Set<String>> map = new HashMap<>();
-        
+        Map<String, Integer> map = new HashMap<>();
         for(int i=0;i<clothes.length;i++){
-            if(!map.containsKey(clothes[i][1])){
-                map.put(clothes[i][1], new HashSet<>());
-            }
-            map.get(clothes[i][1]).add(clothes[i][0]);
-            
+            map.put(clothes[i][1], map.getOrDefault(clothes[i][1], 0) + 1);
         }
-        int sum = 1;
+        int answer = 1;
         for(String i : map.keySet()){
-            sum *= (map.get(i).size() + 1);
+            answer *= map.get(i) + 1;
         }
-        return sum-1;
+        return answer - 1;
     }
 }
