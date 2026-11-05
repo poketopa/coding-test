@@ -1,51 +1,47 @@
 import java.util.*;
-
 class Solution {
-    static int[] y = new int[]{1, -1, 0, 0};
-    static int[] x = new int[]{0, 0, 1, -1};
-    
     public int[] solution(String[][] places) {
-        int[] answer = new int[places.length];
-        x: for(int ts = 0;ts < places.length; ts++){
-            char[][] map = new char[5][5];
+        int[] answer = new int[5];
+        int[] y = {1, -1, 0, 0};
+        int[] x = {0, 0, 1, -1};
+        x: for(int l=0;l<5;l++){
+            String[][] map = new String[5][5];
             for(int i=0;i<5;i++){
-                String temp = places[i];
                 for(int j=0;j<5;j++){
-                    map[i][j] = temp.charAt(j);
+                    map[i][j] = String.valueOf(places[l][i].charAt(j));
                 }
             }
-            Queue<int[]> queue = new LinkedList<>();
+            int[][] visited = new int[5][5];
             for(int i=0;i<5;i++){
                 for(int j=0;j<5;j++){
-                    if(map[i][j] == 'P'){
-                        int[][] visited = new int[5][5];
-                        queue.add(new int[]{i, j, 0});
+                    if(visited[i][j] == 1) continue;
+                    if(map[i][j].equals("P")){
                         visited[i][j] = 1;
+                        Queue<int[]> queue = new LinkedList<>();
+                        queue.add(new int[]{i, j, 0});
                         while(!queue.isEmpty()){
                             int[] temp = queue.poll();
-                            if(temp[2] == 2){
-                                continue;
-                            }
+                            if(temp[2] == 2) continue;
                             for(int k=0;k<4;k++){
                                 int newY = temp[0] + y[k];
                                 int newX = temp[1] + x[k];
                                 if(0 <= newY && newY < 5
-                                && 0 <= newX && newX < 5
-                                && visited[newY][newX] = 0
-                                && map[newY][newX] != X){
-                                    if(map[newY][newX] == P){
-                                        answer[ts] = 0;
+                                  && 0 <= newX && newX < 5
+                                  && !map[newY][newX].equals("X")
+                                  && visited[newY][newX] == 0){
+                                    if(map[newY][newX].equals("P")){
+                                        answer[l] = 0;
                                         continue x;
                                     }
+                                    visited[newY][newX] = 1;
                                     queue.add(new int[]{newY, newX, temp[2] + 1});
                                 }
                             }
                         }
-                        
                     }
                 }
             }
-            answer[ts] = 1;
+            answer[l] = 1;
         }
         return answer;
     }
