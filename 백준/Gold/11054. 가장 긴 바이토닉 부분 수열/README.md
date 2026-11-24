@@ -1,6 +1,6 @@
 # [Gold IV] 가장 긴 바이토닉 부분 수열 - 11054 
 
-[문제 링크](https://www.acmicpc.net/problem/11054) 
+[문제 링크](https://acmicpc.net/problem/11054) 
 
 ### 성능 요약
 
