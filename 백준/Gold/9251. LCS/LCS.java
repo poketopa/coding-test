@@ -1,26 +1,31 @@
-
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    static int answer = -1;
-    public static void main(String[] args) throws IOException {
+    public static void main(String args[]) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        //StringTokenizer st = new StringTokenizer(br.readLine());
-        String str1 = br.readLine();
-        String str2 = br.readLine();
+        // StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int[][] array = new int[str1.length()+1][str2.length()+1];
+        String input1 = br.readLine();
+        String input2 = br.readLine();
 
-        for(int i=1;i<array.length;i++){
-            for(int j=1;j<array[0].length;j++){
-                if(str1.charAt(i-1) == str2.charAt(j-1)){
-                    array[i][j] = array[i-1][j-1] + 1;
+        int[][] dp = new int[input1.length() + 1][input2.length() + 1];
+
+        for(int i=1;i<dp.length;i++){
+            for(int j=1;j<dp[0].length;j++){
+                if(input1.charAt(i-1) == input2.charAt(j-1)) {
+                    dp[i][j] = dp[i-1][j-1] + 1;
+                } else {
+                    dp[i][j] = Math.max(Math.max(dp[i-1][j-1], dp[i-1][j]), dp[i][j-1]);
                 }
-                else array[i][j] = Math.max(array[i][j-1], array[i-1][j]);
-                answer = Math.max(array[i][j], answer);
             }
         }
-        System.out.println(answer);
+        int max = -1;
+        for(int i=0;i<dp.length;i++){
+            for(int j=0;j<dp[0].length;j++){
+                max = Math.max(max, dp[i][j]);
+            }
+        }
+        System.out.print(max);
     }
 }
