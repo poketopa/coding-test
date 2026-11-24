@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.util.*;
 
@@ -16,7 +17,7 @@ public class Main {
                 if(str1.charAt(i-1) == str2.charAt(j-1)){
                     array[i][j] = array[i-1][j-1] + 1;
                 }
-                else array[i][j] = Math.max(Math.max(array[i][j-1], array[i-1][j]), array[i-1][j-1]);
+                else array[i][j] = Math.max(array[i][j-1], array[i-1][j]);
                 answer = Math.max(array[i][j], answer);
             }
         }
